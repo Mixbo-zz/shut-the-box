@@ -1,20 +1,34 @@
 #!/usr/bin/env python
 from core.node import Node
+from core.all_node import AllNode
+from core.ets_node import ETSNode
 from core.dice import Dice
 
 class Game:
 	def __init__(self):
 		self.dices = []
+		self.joueurs = []
 		self.startGame()
-		self.root.printTree()
-		self.result = self.root.bestResult()
+
+		self.resEts = self.joueurs[0].bestResult()
+		self.resAll = self.joueurs[1].bestResult()
+
+		#for joueur in self.joueurs:
+		#	joueur.printTree()
+
 	def startGame(self):
-		self.root = Node(None, self.initBoard(),0)
+		tiles = self.initBoard()
+		self.joueurs.append(ETSNode(None, list(tiles),0))
+		self.joueurs.append(AllNode(None, list(tiles),0))
 		self.gameLoop()
+	
 	def gameLoop(self):
 		done = False
 		while not done:
-			done = self.root.play(self.getRoll())
+			rolled = self.getRoll()
+			doneEts = self.joueurs[0].play(rolled)
+			doneAll = self.joueurs[1].play(rolled)
+			done = doneEts and doneAll
 
 	def getRoll(self):
 		total = 0
@@ -32,15 +46,11 @@ class Game:
 
 
 def main():
-	result = 1
 	i = 0
-	total = 0
-	while result != 0: 
+	for x in range(0,100000):
 		game = Game()
-		result = game.result
-		total += result
-		i +=1
-	print "Nombre de parties avant une parfaite: "+str(i)
-	print "Moyenne des parties jouees (meilleur resultat): "+str(total/i)
+		if game.resEts != game.resAll:
+			i += 1
+	print str(i)+'/100,000'
 if __name__ == "__main__":
 	main()
