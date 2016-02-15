@@ -24,7 +24,7 @@ class Node:
 		elif self.parent.branches[-1] == self:
 			extension = '\x20'*5
 		else:
-			extension = '|\x20'*4
+			extension = '|'+'\x20'*4
 		for branch in self.branches:
 			branch.printTree(pre+extension)
 	def bestResult(self):
