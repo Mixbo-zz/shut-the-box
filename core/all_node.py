@@ -1,6 +1,7 @@
 from core.node import Node
 class AllNode(Node):
 	def __init__(self, parent, tiles, depth):
+		self.parent = parent
 		self.done = False
 		self.tiles = tiles
 		self.depth = depth

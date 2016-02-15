@@ -5,21 +5,28 @@ class Node:
 	@abstractmethod
 	def play(self,rolled):
 		raise NotImplementedError()
-	def printTree(self):
+	def printTree(self,pre=""):
 		remaining = ""
 		for left in self.tiles:
 			remaining += str(left)+','
 		remaining = remaining[:len(remaining)-1]
+		ex = "|----|"
 		if not self.branches:
 			tot = 0
 			for tile in self.tiles:
 				tot+= tile
-			print '|'+('\x20'*4+'|')*self.depth+'-'*4+'|'+remaining+'->'+str(self.rolled)+"total: "+str(tot)
+			print pre+ex+remaining+'->'+str(self.rolled)+"total: "+str(tot)
 		else:
-			print '|'+('\x20'*4+'|')*self.depth+'-'*4+'|'+remaining+'->'+str(self.rolled)
+			print pre+ex+remaining+'->'+str(self.rolled)
 
+		if not self.parent:
+			extension = '\x20'*5
+		elif self.parent.branches[-1] == self:
+			extension = '\x20'*5
+		else:
+			extension = '|\x20'*4
 		for branch in self.branches:
-			branch.printTree()
+			branch.printTree(pre+extension)
 	def bestResult(self):
 		if self.done:
 			tot = 0
