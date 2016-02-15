@@ -14,9 +14,9 @@ class Node:
 			tot = 0
 			for tile in self.tiles:
 				tot+= tile
-			print ('-'*4+'|')*self.depth+'\x20'+remaining+'->'+str(self.rolled)+"total: "+str(tot)
+			print '|'+('\x20'*4+'|')*self.depth+'-'*4+'|'+remaining+'->'+str(self.rolled)+"total: "+str(tot)
 		else:
-			print ('-'*4+'|')*self.depth+'\x20'+remaining+'->'+str(self.rolled)
+			print '|'+('\x20'*4+'|')*self.depth+'-'*4+'|'+remaining+'->'+str(self.rolled)
 
 		for branch in self.branches:
 			branch.printTree()

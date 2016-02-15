@@ -13,8 +13,9 @@ class Game:
 		self.resEts = self.joueurs[0].bestResult()
 		self.resAll = self.joueurs[1].bestResult()
 
-		#for joueur in self.joueurs:
-		#	joueur.printTree()
+		for joueur in self.joueurs:
+			joueur.printTree()
+			print '\n'
 
 	def startGame(self):
 		tiles = self.initBoard()
@@ -47,10 +48,9 @@ class Game:
 
 def main():
 	i = 0
-	for x in range(0,100000):
+	for x in range(0,1):
 		game = Game()
 		if game.resEts != game.resAll:
 			i += 1
-	print str(i)+'/100,000'
 if __name__ == "__main__":
 	main()
